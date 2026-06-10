@@ -97,30 +97,33 @@
                             </a>
 
                             @auth
-    <a
-        href="{{ route('events.edit', $event) }}"
-        class="btn btn-warning btn-sm"
-    >
-        Edit
-    </a>
+                                
+                                @if($event->user_id === auth()->id() || auth()->user()->isAdmin())
+                                    <a
+                                        href="{{ route('events.edit', $event) }}"
+                                        class="btn btn-warning btn-sm"
+                                    >
+                                        Edit
+                                    </a>
+                                @endif
 
-    <form
-        action="{{ route('events.destroy', $event) }}"
-        method="POST"
-        class="d-inline"
-    >
-        @csrf
-        @method('DELETE')
+                                <form
+                                    action="{{ route('events.destroy', $event) }}"
+                                    method="POST"
+                                    class="d-inline"
+                                >
+                                    @csrf
+                                    @method('DELETE')
 
-        <button
-            class="btn btn-danger btn-sm"
-            onclick="return confirm('Delete event?')"
-        >
-            Delete
-        </button>
+                                    <button
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Delete event?')"
+                                    >
+                                        Delete
+                                    </button>
 
-    </form>
-@endauth
+                                </form>
+                            @endauth
                               
                         </div>
 

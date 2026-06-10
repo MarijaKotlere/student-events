@@ -19,9 +19,11 @@
                     </button>
                 </form>
 
-                <a href="{{ route('events.edit', $event) }}" class="btn btn-warning">
-                    Edit
-                </a>
+                @if($event->user_id === auth()->id() || auth()->user()->isAdmin())                                
+                    <a href="{{ route('events.edit', $event) }}" class="btn btn-warning">
+                        Edit
+                    </a>
+                @endif
             @endauth
 
             <a href="{{ route('events.index') }}" class="btn btn-secondary">
@@ -35,16 +37,6 @@
             Please login or register to comment, rate or register for this event.
         </div>
     @endguest
-
-    <h3>Keywords</h3>
-
-    @if ($event->keywords->count())
-        @foreach ($event->keywords as $keyword)
-            <span class="badge bg-dark">{{ $keyword->name }}</span>
-        @endforeach
-    @else
-        <p>No keywords.</p>
-    @endif
 
     <hr>
 
@@ -81,7 +73,16 @@
             <div class="border p-2 mb-2">
                 <strong>{{ $comment->user->name }}</strong>
                 <p class="mb-0">{{ $comment->content }}</p>
+                <form method='POST' action="{{ route('comments.destroy', $comment) }}">
+                    @csrf
+                    @method('DELETE')
+
+                    <button class="btn btn-danger">
+                        Delete Comment
+                    </button>
+                </form>
             </div>
+
         @endforeach
     @else
         <p>No comments yet.</p>

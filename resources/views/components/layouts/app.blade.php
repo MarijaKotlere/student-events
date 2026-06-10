@@ -30,11 +30,18 @@
                     <a class="btn btn-warning btn-sm" href="{{ route('categories.index') }}">
                         Manage Categories
                     </a>
+                    <a class="btn btn-warning btn-sm" href="{{ route('users.index') }}">
+                        Manage Users
+                    </a>
                 @endif
-
+                
                 <span class="text-white ms-2">
                     {{ auth()->user()->name }} ({{ auth()->user()->role }})
                 </span>
+
+                <a class="btn btn-warning btn-sm" href="{{ route('users.edit', auth()->user()) }}">
+                    User settings
+                </a>
 
                 <form method="POST" action="{{ route('logout') }}" class="d-inline">
                     @csrf

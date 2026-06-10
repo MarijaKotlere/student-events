@@ -17,6 +17,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'blocked',
     ];
 
     protected $hidden = [
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role === 'admin';
+    }
+
+    public function isBlocked()
+    {
+        return $this->blocked == true;
     }
 }

@@ -24,4 +24,13 @@ class CommentController extends Controller
             ->route('events.show', $event)
             ->with('success', 'Comment added successfully.');
     }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+
+         return redirect()
+            ->back()
+            ->with('success', 'Comment deleted successfully.');   
+    }
 }

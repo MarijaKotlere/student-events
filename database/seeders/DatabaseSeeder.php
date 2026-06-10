@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Event;
-use App\Models\Keyword;
 use App\Models\Comment;
 use App\Models\Rating;
 use App\Models\Registration;
@@ -38,6 +37,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'student@example.com',
             'password' => Hash::make('password'),
             'role' => 'user',
+        ]);
+        
+        $student = User::create([
+            'name' => 'Student User',
+            'email' => 'blocked@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
+            'blocked' => true
         ]);
 
         /*
@@ -117,59 +124,6 @@ class DatabaseSeeder extends Seeder
             'category_id' => $socialCategory->id,
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | 4. Keywords
-        |--------------------------------------------------------------------------
-        | Atslēgvārdi palīdzēs vēlāk meklēt pasākumus.
-        */
-
-        $keywordStudents = Keyword::create([
-            'name' => 'students',
-        ]);
-
-        $keywordEducation = Keyword::create([
-            'name' => 'education',
-        ]);
-
-        $keywordSport = Keyword::create([
-            'name' => 'sport',
-        ]);
-
-        $keywordMusic = Keyword::create([
-            'name' => 'music',
-        ]);
-
-        $keywordNetworking = Keyword::create([
-            'name' => 'networking',
-        ]);
-
-        /*
-        |--------------------------------------------------------------------------
-        | 5. Attach keywords to events
-        |--------------------------------------------------------------------------
-        | Vienam pasākumam var būt vairāki atslēgvārdi.
-        */
-
-        $event1->keywords()->attach([
-            $keywordStudents->id,
-            $keywordEducation->id,
-        ]);
-
-        $event2->keywords()->attach([
-            $keywordStudents->id,
-            $keywordSport->id,
-        ]);
-
-        $event3->keywords()->attach([
-            $keywordStudents->id,
-            $keywordMusic->id,
-        ]);
-
-        $event4->keywords()->attach([
-            $keywordStudents->id,
-            $keywordNetworking->id,
-        ]);
 
         /*
         |--------------------------------------------------------------------------

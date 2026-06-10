@@ -81,7 +81,6 @@ class EventController extends Controller
             'user',
             'comments.user',
             'ratings',
-            'keywords',
             'registrations',
         ]);
 
