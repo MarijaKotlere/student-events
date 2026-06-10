@@ -104,6 +104,12 @@ class EventController extends Controller
             'max_participants' => 'nullable|integer|min:1',
             'category_id' => 'required|exists:categories,id',
         ]);
+ 
+        if ($event->max_participants !== null && $event->registrations()->count() >= $event->max_participants) {
+            return redirect()
+                ->route('events.show', $event)
+                ->with('success', 'Max Participants cant be lower than registrations.');
+        }
 
         $event->update($validated);
 
