@@ -106,7 +106,8 @@
                                         Edit
                                     </a>
                                 @endif
-
+                                
+                                @if($event->user_id === auth()->id() || auth()->user()->isAdmin())
                                 <form
                                     action="{{ route('events.destroy', $event) }}"
                                     method="POST"
@@ -123,6 +124,7 @@
                                     </button>
 
                                 </form>
+                                @endif
                             @endauth
                               
                         </div>
