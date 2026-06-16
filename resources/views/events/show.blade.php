@@ -73,7 +73,7 @@
             <div class="border p-2 mb-2">
                 <strong>{{ $comment->user->name }}</strong>
                 <p class="mb-0">{{ $comment->content }}</p>
-                @if($comment->user_id === auth()->id() || auth()->user()->isAdmin())
+                @if($comment->user_id === auth()->id() || (auth()->user() && auth()->user()->isAdmin()))
                     <form method='POST' action="{{ route('comments.destroy', $comment) }}">
                        @csrf
                        @method('DELETE')
