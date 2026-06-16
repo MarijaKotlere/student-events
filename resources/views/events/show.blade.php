@@ -73,14 +73,16 @@
             <div class="border p-2 mb-2">
                 <strong>{{ $comment->user->name }}</strong>
                 <p class="mb-0">{{ $comment->content }}</p>
-                <form method='POST' action="{{ route('comments.destroy', $comment) }}">
-                    @csrf
-                    @method('DELETE')
+                @if($comment->user_id === auth()->id() || auth()->user()->isAdmin())
+                    <form method='POST' action="{{ route('comments.destroy', $comment) }}">
+                       @csrf
+                       @method('DELETE')
 
-                    <button class="btn btn-danger">
-                        Delete Comment
-                    </button>
-                </form>
+                       <button class="btn btn-danger">
+                           Delete Comment
+                        </button>
+                    </form>
+                @endif
             </div>
 
         @endforeach
